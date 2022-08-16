@@ -87,7 +87,12 @@ router.get('/delete/', function (req, res) {
 });
 
 
-
+router.get('/getUser', function (req, res) {
+  STUDENT.find({}, function (err, result) {
+    if (err) throw err;
+    res.send(result);
+  })
+})
 
 
 
