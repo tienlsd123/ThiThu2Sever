@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ThiThu</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+
+  <a href="/insertForm/">Add New</a>
+
+
+  <% for(var i = 0; i < data.length; i++){ %>
+    <div style="background-color: darkgray ; margin: 10px; padding: 20px ">
+      <img src="<%= data[i]._avatar %>" style="text-align: center; max-width: 300px; max-height: 200px ; min-width: 300px ; min-height: 200px">
+      <div>
+        <h2>ten: <%=data[i]._ten%> </h2>
+        <p>tuoi: <%=data[i]._tuoi%> </p>
+
+      </div>
+      <a href="/delete/?id=<%= data[i]._id %>" style="text-decoration: none; color: red">Delete</a>
+      <hr>
+    </div>
+  <% } %>
+
+  </body>
+</html>
