@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ThiThu</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+
+  <% for(var i = 0; i < data.length; i++){ %>
+    <div style="background-color: darkgray ; margin: 10px; padding: 20px ">
+      <img src="<%= data[i]._anh %>" style="text-align: center; max-width: 300px; max-height: 200px ; min-width: 300px ; min-height: 200px">
+      <div>
+        <h2>tieu de: <%=data[i]._tieude%> </h2>
+        <p>noi dung: <%=data[i]._noidung%> </p>
+        <p>bai viet: <%=data[i]._baiviet%> </p>
+      </div>
+      <hr>
+    </div>
+  <% } %> 
+
+  </body>
+</html>

@@ -31,24 +31,32 @@ var upload = multer( {
     }
 
   }
-}).array('_avatar', 6);
+}).array('_anh', 3);
 
 const uri = "mongodb+srv://tienlcvb2002:6RGV5nq1myv4JDL6@cluster0.1vruet8.mongodb.net/lab6?retryWrites=true&w=majority";
 mongoose.connect(uri).catch(err => console.log(err));
 
 
-const STUDENT = mongoose.model('students', new Schema({
-  _avatar: String,
-  _ten: String,
-  _tuoi: String,
+const BAIVIET = mongoose.model('baiviets', new Schema({
+  _tieude: String,
+  _noidung: String,
+  _baiviet: String,
+  _anh: String,
 }))
 
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  STUDENT.find({}, function (err, result) {
+  BAIVIET.find({}, function (err, result) {
     if (err != null) throw err;
     res.render('index', {data: result});
+  })
+});
+
+router.get('/danhSach', function(req, res, next) {
+  BAIVIET.find({}, function (err, result) {
+    if (err != null) throw err;
+    res.render('danhsach', {data: result});
   })
 });
 
@@ -62,13 +70,16 @@ router.post('/insert/', function (req, res, next) {
       if(err != null){
         res.send(err.message)
       }else {
-        let _ten = req.body._ten;
-        let _tuoi = req.body._tuoi;
-        let _avatar = req.files[0].path;
-        STUDENT.insertMany({
-        _avatar : _avatar,
-        _ten: _ten,
-        _tuoi: _tuoi
+        let _tieude = req.body._tieude;
+        let _noidung = req.body._noidung;
+        let _baiviet = req.body._baiviet;
+        let _anh = req.files[0].path;
+
+        BAIVIET.insertMany({
+        _tieude: _tieude,
+          _noidung: _noidung,
+          _baiviet: _baiviet,
+          _anh: _anh,
       }, function (error, result) {
         if(error) throw error;
         res.redirect('/');
@@ -77,15 +88,29 @@ router.post('/insert/', function (req, res, next) {
   })
 });
 
+router.post('/insert/', function (req, res, next) {
 
-router.get('/delete/', function (req, res) {
-  const id = req.query.id;
-  STUDENT.deleteOne({_id: id}, function (error) {
-    if (error != null) throw error;
-    res.send('Xoa Thanh Cong!!!');
+  upload(req, res, function (err){
+    if(err != null){
+      res.send(err.message)
+    }else {
+      let _tieude = req.body._tieude;
+      let _noidung = req.body._noidung;
+      let _baiviet = req.body._baiviet;
+      let _anh = req.files[0].path;
+
+      BAIVIET.insertMany({
+        _tieude: _tieude,
+        _noidung: _noidung,
+        _baiviet: _baiviet,
+        _anh: _anh
+      }, function (error, result) {
+        if(error) throw error;
+        res.redirect('/');
+      })
+    }
   })
 });
-
 
 router.get('/getUser', function (req, res) {
   STUDENT.find({}, function (err, result) {
